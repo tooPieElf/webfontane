@@ -1,4 +1,21 @@
 import './App.css';
+import React, {Component} from 'react';
+import NavBar from "./components/layout/NavBar";
+import axios from 'axios';
+import Repositories from "./components/repositories/Repositories";
+import Search from "./components/repositories/Search"
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import Analysis from "./components/repositories/Analysis";
+
+
+class App extends Component {
+
+    state = {
+        repos: [],
+        loading: false,
+        alert: null,
+        repoName: null
+    }
 
     async componentDidMount() {
         this.setState({loading: true});
