@@ -1,5 +1,5 @@
 import './App.css';
-import React, {Component} from 'react';
+import React, { useState} from 'react';
 import NavBar from "./components/layout/NavBar";
 import axios from 'axios';
 import Repositories from "./components/repositories/Repositories";
@@ -9,51 +9,43 @@ import Analysis from "./components/Analysis/Analysis";
 import Alert from "./components/layout/Alert";
 
 
-class App extends Component {
+function App() {
+    const [repos, setRepos] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [alert, setAlertt] = useState(null)
+    const [repoName, setrepoName] = useState(null);
 
-    state = {
-        repos: [],
-        loading: false,
-        alert: null,
-        repoName: null
-    }
 
-    searchUsers = async (text) => {
-        this.setState({loading: true})
+   const searchUsers = async (text) => {
+        setLoading(true)
         const res = await axios.get(`https://api.github.com/search/repositories?q=${text}`)
-        this.setState({
-            repos: res.data.items,
-            loading: false
-        })
-    };
-
-    clearUsers = () => this.setState({repos: [],loading: false});
-    setAlert =(msg, type) =>{
-        this.setState({
-            alert: {
-                msg: msg,
-                type: type
-            }
-        })
-        setTimeout(()=>this.setState({alert:null}), 1000)
+       setRepos(res.data.items)
+       setLoading(false)
     }
 
-    setRepo = (svn_url) => this.setState({repoName: svn_url  })
+    const clearUsers = () => {
+        setRepos([]);
+        setLoading(false);
+    }
+    const setAlert =(msg, type) =>{
+        setAlertt({msg: msg, type: type})
 
-  render() {
-        const {loading, repos, repoName} = this.state
+        setTimeout(()=>setAlertt(null), 1000)
+    }
+
+    const setRepo = (svn_url) => setrepoName(svn_url);
     return (
         <Router>
         <div className = "App">
           <NavBar title="Webb Fontane"/>
             <div className="container">
-                <Alert alert = {this.state.alert}/>
+                <Alert alert = {alert}/>
                 <Switch>
                 <Route path = '/' exact  render ={()=>
                     <>
                         <h2>Public Repository Search Application</h2>
-                        <Search searchUsers={this.searchUsers} clearUsers = {this.clearUsers} setAlert={this.setAlert} />
-                        <Repositories repos = {repos} loading = {loading} setRepo ={this.setRepo}/>
+                        <Search searchUsers={searchUsers} clearUsers = {clearUsers} setAlert={setAlert} />
+                        <Repositories repos = {repos} loading = {loading} setRepo ={setRepo}/>
                     </>
 
                 }/>
@@ -65,7 +57,7 @@ class App extends Component {
         </div>
         </Router>
     );
-  }
+
 }
 
 export default App;
