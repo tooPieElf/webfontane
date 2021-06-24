@@ -2,7 +2,6 @@ import React from 'react';
 
 function CommitUsers (props){
 const {uniqueUsers} = props;
-console.log(uniqueUsers);
     return (
         <div className='card '>
             <ul>

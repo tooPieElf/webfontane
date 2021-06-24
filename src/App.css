@@ -7,7 +7,7 @@
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
-  --sweet-blue : #ab134e;
+  --sweet-blue : #149666;
 }
 
 * {
@@ -259,7 +259,6 @@ img {
   background: var(--light-color);
   color: #333;
 }
-
 .btn-primary,
 .bg-primary,
 .badge-primary,

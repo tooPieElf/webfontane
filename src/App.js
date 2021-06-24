@@ -6,6 +6,7 @@ import Repositories from "./components/repositories/Repositories";
 import Search from "./components/repositories/Search"
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Analysis from "./components/Analysis/Analysis";
+import Alert from "./components/layout/Alert";
 
 
 class App extends Component {
@@ -15,15 +16,6 @@ class App extends Component {
         loading: false,
         alert: null,
         repoName: null
-    }
-
-    async componentDidMount() {
-        this.setState({loading: true});
-        const res = await axios.get('https://api.github.com/repositories');
-        this.setState({
-            repos: res.data,
-            loading: false
-        })
     }
 
     searchUsers = async (text) => {
@@ -36,6 +28,15 @@ class App extends Component {
     };
 
     clearUsers = () => this.setState({repos: [],loading: false});
+    setAlert =(msg, type) =>{
+        this.setState({
+            alert: {
+                msg: msg,
+                type: type
+            }
+        })
+        setTimeout(()=>this.setState({alert:null}), 1000)
+    }
 
     setRepo = (svn_url) => this.setState({repoName: svn_url  })
 
@@ -46,10 +47,11 @@ class App extends Component {
         <div className = "App">
           <NavBar title="Webb Fontane"/>
             <div className="container">
+                <Alert alert = {this.state.alert}/>
                 <Switch>
                 <Route path = '/' exact  render ={()=>
                     <>
-                        <Search searchUsers={this.searchUsers} clearUsers = {this.clearUsers} />
+                        <Search searchUsers={this.searchUsers} clearUsers = {this.clearUsers} setAlert={this.setAlert} />
                         <Repositories repos = {repos} loading = {loading} setRepo ={this.setRepo}/>
                     </>
 

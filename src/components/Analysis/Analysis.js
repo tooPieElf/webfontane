@@ -48,8 +48,6 @@ class Analysis extends Component {
             uniqueDates = [...dateFrequency.keys()]
             dateFreq = [...dateFrequency.values()]
         }
-
-        console.log(dateValue)
         const{loading} =this.state;
         return (
 
@@ -60,17 +58,12 @@ class Analysis extends Component {
                 </Link>
                 {
                     loading ? <Spinner/> :
-
                         <>
                             <CommitUsers  uniqueUsers = {uniqueUsers}/>
                     <NumberOfCommits uniqueUsers = {uniqueUsers} userFreq = {userFreq} />
                     <TimeLine uniqueDates = {uniqueDates} dateFreq ={dateFreq}/>
                         </>
                 }
-
-
-
-
             </div>
         );
 

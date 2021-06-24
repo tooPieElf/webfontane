@@ -10,8 +10,13 @@ class Search extends Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
+        if(this.state.text===''){
+            this.props.setAlert('Please enter something', 'danger')
+        }else{
             this.props.searchUsers(this.state.text);
             this.setState({text: ''})
+        }
+
     }
 
     render() {
@@ -38,6 +43,7 @@ class Search extends Component {
 export default Search;
 
 Search.propTypes = {
-    clearUsers: PropTypes.func.isRequired,
-    searchUsers: PropTypes.func.isRequired,
+  clearUsers: PropTypes.func.isRequired,
+  searchUsers: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
 }
