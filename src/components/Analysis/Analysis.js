@@ -52,15 +52,18 @@ class Analysis extends Component {
         return (
 
             <div>
-                <h3> list of commiters</h3>
+
                 <Link to="/" className='btn btn-sweet-blue btn-sm my-1'>
                     Home
                 </Link>
+                <h3>Contributors</h3>
                 {
                     loading ? <Spinner/> :
                         <>
                             <CommitUsers  uniqueUsers = {uniqueUsers}/>
+                            <h3>Contributors Impact</h3>
                     <NumberOfCommits uniqueUsers = {uniqueUsers} userFreq = {userFreq} />
+                            <h3> Repository Commit Timeline</h3>
                     <TimeLine uniqueDates = {uniqueDates} dateFreq ={dateFreq}/>
                         </>
                 }

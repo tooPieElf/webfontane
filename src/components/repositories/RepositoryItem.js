@@ -14,7 +14,7 @@ const {avatar_url} = owner;
             <h3>{name}</h3>
             <div>
                 <Link to="/analysis" onClick={()=>setRepo(full_name)} className='btn btn-sweet-blue btn-sm my-1'>
-                    repository
+                    see repository
                 </Link>
             </div>
         </div>
