@@ -51,6 +51,7 @@ class App extends Component {
                 <Switch>
                 <Route path = '/' exact  render ={()=>
                     <>
+                        <h2>Public Repository Search Application</h2>
                         <Search searchUsers={this.searchUsers} clearUsers = {this.clearUsers} setAlert={this.setAlert} />
                         <Repositories repos = {repos} loading = {loading} setRepo ={this.setRepo}/>
                     </>
