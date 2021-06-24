@@ -5,7 +5,7 @@ import axios from 'axios';
 import Repositories from "./components/repositories/Repositories";
 import Search from "./components/repositories/Search"
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Analysis from "./components/repositories/Analysis";
+import Analysis from "./components/Analysis/Analysis";
 
 
 class App extends Component {
@@ -54,7 +54,7 @@ class App extends Component {
                     </>
 
                 }/>
-                <Route path = '/analysis' component={ ()=> <Analysis repoName = {repoName} />}/>
+                <Route path = '/analysis' component={ ()=> <Analysis repoName = {repoName} loading = {loading} />}/>
                 </Switch>
 
 

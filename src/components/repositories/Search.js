@@ -22,7 +22,7 @@ class Search extends Component {
                     <input
                         type="text"
                         name="text"
-                        placeholder="Search users ..."
+                        placeholder="Search repositories ..."
                         value={this.state.text}
                         onChange={this.onChange}
                     />
