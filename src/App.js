@@ -7,6 +7,8 @@ import Search from "./components/repositories/Search"
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Analysis from "./components/Analysis/Analysis";
 import Alert from "./components/layout/Alert";
+import GithubState from "./context/github/GithubState";
+
 
 
 function App() {
@@ -35,6 +37,7 @@ function App() {
 
     const setRepo = (svn_url) => setrepoName(svn_url);
     return (
+        <GithubState>
         <Router>
         <div className = "App">
           <NavBar title="Webb Fontane"/>
@@ -56,6 +59,7 @@ function App() {
             </div>
         </div>
         </Router>
+        </GithubState>
     );
 
 }

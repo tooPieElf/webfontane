@@ -10,13 +10,16 @@ function Analysis({repoName}) {
     const [data, setData] = useState( []);
     const [loading, setLoading] = useState(false);
 
-    useEffect( async () => {
+    useEffect(  () => {
+        setLoading(true);
+        const fetchData = async () =>{
             if(repoName){
-                setLoading(true);
+
                 const res = await axios.get(`https://api.github.com/repos/${repoName}/commits?per_page=100`);
                 setData(res);
-
             }
+        }
+        fetchData().then();
             setLoading(false);
 
     }, []);
