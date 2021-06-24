@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useEffect, useState} from 'react';
 import {Link} from "react-router-dom"
 import axios from "axios";
 import NumberOfCommits from "./NumberOfCommits";
@@ -6,36 +6,24 @@ import TimeLine from "./TimeLine";
 import CommitUsers from "./CommitUsers";
 import Spinner from "../layout/Spinner";
 
-class Analysis extends Component {
-    state = {
-        data: "",
-        loading: false
-    }
+function Analysis({repoName}) {
+    const [data, setData] = useState( []);
+    const [loading, setLoading] = useState(false);
 
-    async componentDidMount() {
-       const _this = this;
-       if(_this.props.repoName){
-           this.setState({loading: true});
-           const res = await axios.get(`https://api.github.com/repos/${_this.props.repoName}/commits?per_page=100`);
-           this.setState({
-               data: res
-           })
-       }
-        this.setState({loading: false})
-    }
+    useEffect( async () => {
+            if(repoName){
+                setLoading(true);
+                const res = await axios.get(`https://api.github.com/repos/${repoName}/commits?per_page=100`);
+                setData(res);
 
+            }
+            setLoading(false);
 
-    render() {
-        let userData = this.state.data;
-        let dataValue;
-        let dateValue;
-        let formatDateValue
-        let userFrequency;
-        let dateFrequency;
-        let uniqueUsers;
-        let userFreq;
-        let uniqueDates;
-        let dateFreq;
+    }, []);
+
+        let userData = data;
+        let dataValue,dateValue, formatDateValue, userFrequency, dateFrequency, uniqueUsers, userFreq, uniqueDates,dateFreq;
+
 
         if(Object.entries(userData).length > 0) {
             dataValue = userData.data.map(r=> (r.commit.author.name))
@@ -48,7 +36,6 @@ class Analysis extends Component {
             uniqueDates = [...dateFrequency.keys()]
             dateFreq = [...dateFrequency.values()]
         }
-        const{loading} =this.state;
         return (
 
             <div>
@@ -70,7 +57,6 @@ class Analysis extends Component {
             </div>
         );
 
-    }
 }
 
 export default Analysis;
